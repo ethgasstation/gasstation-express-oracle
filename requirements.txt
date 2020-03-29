@@ -9,7 +9,7 @@ eth-utils==0.7.1
 idna==2.6
 numpy==1.13.3
 pandas==0.21.0
-pycryptodome==3.4.7
+pycryptodome==3.6.6
 pylru==1.0.9
 pysha3==1.0.2
 python-dateutil==2.6.1
