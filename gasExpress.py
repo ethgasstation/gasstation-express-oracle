@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import time
 import sys
 import json
@@ -8,8 +10,8 @@ import pandas as pd
 import numpy as np
 from web3 import Web3, HTTPProvider
 
-
-web3 = Web3(HTTPProvider('http://localhost:8545'))
+node_url = os.getenv('ETH_NODE_URL', 'http://localhost:8545')
+web3 = Web3(HTTPProvider(node_url))
 
 ### These are the threholds used for % blocks accepting to define the recommended gas prices. can be edited here if desired
 
