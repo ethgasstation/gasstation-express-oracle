@@ -7,3 +7,10 @@ This is a simple gas price oracle that can be used if you are running a local ge
 usage: python3 gasExpress.py
 
 requirements: pip3 install -r requirements.txt
+
+## Docker
+```
+docker build -t gasstation-express .
+docker run -e ETH_NODE_URL=http://10.1.0.23:8545 -e OUTPUT_DIR=/data/mainnet \
+-v $(pwd)/data:/data -it gasstation-express
+```
