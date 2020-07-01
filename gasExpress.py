@@ -1,3 +1,4 @@
+import argparse
 import time
 import sys
 import json
@@ -9,7 +10,7 @@ import numpy as np
 from web3 import Web3, HTTPProvider
 
 
-web3 = Web3(HTTPProvider('http://localhost:8545'))
+web3 = Web3(HTTPProvider('https://kovan.ethichub.com'))
 
 ### These are the threholds used for % blocks accepting to define the recommended gas prices. can be edited here if desired
 
@@ -68,7 +69,7 @@ class CleanBlock():
         data = {0:{'block_number':self.block_number, 'blockhash':self.blockhash, 'time_mined':self.time_mined, 'mingasprice':self.mingasprice}}
         return pd.DataFrame.from_dict(data, orient='index')
 
-def write_to_json(gprecs, prediction_table):
+def write_to_json(gprecs, prediction_table, path):
     """write json data"""
     try:
         prediction_table['gasprice'] = prediction_table['gasprice']/10
@@ -76,10 +77,10 @@ def write_to_json(gprecs, prediction_table):
         filepath_gprecs = 'ethgasAPI.json'
         filepath_prediction_table = 'predictTable.json'
         
-        with open(filepath_gprecs, 'w') as outfile:
+        with open(path + filepath_gprecs, 'w') as outfile:
             json.dump(gprecs, outfile)
 
-        with open(filepath_prediction_table, 'w') as outfile:
+        with open(path + filepath_prediction_table, 'w') as outfile:
             outfile.write(prediction_tableout)
 
     except Exception as e:
@@ -175,7 +176,7 @@ def get_gasprice_recs(prediction_table, block_time, block):
     gprecs['blockNum'] = block
     return(gprecs)
 
-def master_control():
+def master_control(path: str):
 
     def init (block):
         nonlocal alltx
@@ -230,7 +231,7 @@ def master_control():
             print(gprecs)
 
             #every block, write gprecs, predictions    
-            write_to_json(gprecs, predictiondf)
+            write_to_json(gprecs, predictiondf, path)
             return True
 
         except: 
@@ -253,4 +254,10 @@ def master_control():
 
         time.sleep(1)
 
-master_control()
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Create json to EtherGasStation Oracle')
+    parser.add_argument('--path', '-p', metavar='path', required=False, default='',
+                        help='the path to create json files')
+    args = parser.parse_args()
+    master_control(path=args.path)
