@@ -13,9 +13,9 @@ web3 = Web3(HTTPProvider('http://localhost:8545'))
 
 ### These are the threholds used for % blocks accepting to define the recommended gas prices. can be edited here if desired
 
-SAFELOW = 35
-STANDARD = 60
-FAST = 90
+SAFELOW = 16
+STANDARD = 33
+FAST = 60
 
 class Timers():
     """
