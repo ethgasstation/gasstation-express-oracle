@@ -7,7 +7,7 @@ eth-keys==0.1.0b3
 eth-tester==0.1.0b5
 eth-utils==0.7.1
 idna==2.6
-numpy==1.13.3
+numpy==1.22.0
 pandas==0.21.0
 pycryptodome==3.4.7
 pylru==1.0.9
